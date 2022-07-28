@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_menu">
+    <fragment
+        android:id="@+id/nav_menu"
+        android:name="cz.lumonos.intresteremote.ui.MenuFragment"
+        android:label="Nabídka" >
+        <action
+            android:id="@+id/action_nav_menu_to_nav_new_game"
+            app:destination="@id/nav_new_game" />
+        <action
+            android:id="@+id/action_nav_menu_to_nav_current_game"
+            app:destination="@id/nav_current_game"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_menu"/>
+        <action
+            android:id="@+id/action_nav_menu_to_nav_statistics"
+            app:destination="@id/nav_statistics" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_new_game"
+        android:name="cz.lumonos.intresteremote.ui.NewGameFragment"
+        android:label="Vybrat hru">
+        <action
+            android:id="@+id/action_nav_new_game_to_nav_config_game"
+            app:destination="@id/nav_config_game" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_config_game"
+        android:name="cz.lumonos.intresteremote.ui.ConfigureGameFragment"
+        android:label="Nastavit parametry">
+        <action
+            android:id="@+id/action_nav_config_game_to_nav_current_game"
+            app:destination="@id/nav_current_game"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_menu"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_current_game"
+        android:name="cz.lumonos.intresteremote.ui.CurrentGameFragment"
+        android:label="Probíhající hra"
+        >
+        <action
+            android:id="@+id/action_nav_current_game_to_nav_menu"
+            app:destination="@id/nav_menu"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_statistics"
+        android:name="cz.lumonos.intresteremote.ui.StatisticsFragment"
+        android:label="Statistiky">
+    </fragment>
+
+
+</navigation>
