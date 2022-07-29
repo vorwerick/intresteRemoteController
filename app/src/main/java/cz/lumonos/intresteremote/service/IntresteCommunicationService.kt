@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.lang.StringBuilder
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -117,7 +118,8 @@ class IntresteCommunicationService {
 
     private fun resolveMessage(message: MessageProtocol.Message) {
         if (message.type == MessageProtocol.DATA) {
-            val jsonObject = Klaxon().parse<JsonObject?>(message.data)
+            val parser: Parser = Parser.default()
+            val jsonObject: JsonObject? = parser.parse(StringBuilder(message.data)) as JsonObject?
             if(jsonObject == null){
                 sendMessage(MessageProtocol.RESPONSE_ERROR, null)
                 return
