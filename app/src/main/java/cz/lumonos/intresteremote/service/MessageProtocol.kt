@@ -32,7 +32,7 @@ class MessageProtocol {
             .append(SPLIT_CHAR).append(message.dataLength)
             .append(SPLIT_CHAR).append(message.data)
             .append(SPLIT_CHAR).append(END_CHAR)
-        Log.i("HOO", builder.toString())
+        Log.i("Pack message", builder.toString())
         return builder.toString()
     }
 
@@ -46,12 +46,12 @@ class MessageProtocol {
                     val block =
                         inputBuffer.slice(indexOfStartChar until inputBuffer.size).joinToString("")
                     // message is ok
-                    Log.i("HOO", block)
+                    Log.i("Read bytes", block)
                     try {
                         val message = checkMessage(block)
                         readMessageCallback?.invoke(message)
                     } catch (e: IllegalStateException) {
-                        Log.e("HOO", e.localizedMessage ?: "unknown error")
+                        Log.e("Read bytes", e.localizedMessage ?: "unknown error")
                     }
                 }
                 inputBuffer.clear()
