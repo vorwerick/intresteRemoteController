@@ -115,19 +115,19 @@ class IntresteCommunicationService {
     }
 
     private fun resolveMessage(message: MessageProtocol.Message) {
-        Log.i("RECEIVED", message.toString())
         if (message.type == MessageProtocol.DATA) {
             val jsonObject = Parser.default().parse(message.data) as JsonObject
             callbackListener?.onDataReceived(message.type, jsonObject)
+            sendMessage(MessageProtocol.RESPONSE_OK, null)
         }
         if (message.type == MessageProtocol.PING) {
             callbackListener?.onPingReceived()
+            sendMessage(MessageProtocol.PONG, null)
         }
         if (message.type == MessageProtocol.RESPONSE_OK) {
             callbackListener?.onResponseOkReceived(message.id)
         }
 
-        sendMessage(MessageProtocol.RESPONSE_OK, null)
     }
 
 

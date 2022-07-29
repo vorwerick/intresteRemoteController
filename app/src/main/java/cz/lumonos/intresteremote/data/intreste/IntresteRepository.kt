@@ -1,6 +1,7 @@
 package cz.lumonos.intresteremote.data.intreste
 
 import android.bluetooth.BluetoothAdapter
+import android.util.Log
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Klaxon
 import cz.lumonos.intresteremote.App
@@ -84,6 +85,8 @@ class IntresteRepository() : CommandCallbackListener {
         GlobalScope.launch(Dispatchers.Main) {
             if (jsonObject["command"] == "currentGame") {
                val currentGame = Klaxon().parse<CurrentGame?>(jsonObject["currentGame"] as String)
+                Log.i("Data received", "current game: " + jsonObject.toJsonString())
+
                 currentGameCallbacks.forEach { it.invoke(currentGame) }
             }
         }
