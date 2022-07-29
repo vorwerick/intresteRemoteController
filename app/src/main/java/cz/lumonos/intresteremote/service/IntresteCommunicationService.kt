@@ -115,6 +115,7 @@ class IntresteCommunicationService {
     }
 
     private fun resolveMessage(message: MessageProtocol.Message) {
+        Log.i("RECEIVED", message.toString())
         if (message.type == MessageProtocol.DATA) {
             val jsonObject = Parser.default().parse(message.data) as JsonObject
             callbackListener?.onDataReceived(message.type, jsonObject)
