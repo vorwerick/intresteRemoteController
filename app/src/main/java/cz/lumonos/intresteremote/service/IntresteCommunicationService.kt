@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.util.Log
 import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Klaxon
 import com.beust.klaxon.Parser
 import cz.lumonos.intresteremote.data.intreste.CommandCallbackListener
 import cz.lumonos.intresteremote.service.log.L
@@ -116,7 +117,11 @@ class IntresteCommunicationService {
 
     private fun resolveMessage(message: MessageProtocol.Message) {
         if (message.type == MessageProtocol.DATA) {
-            val jsonObject = Parser.default().parse(message.data) as JsonObject
+            val jsonObject = Klaxon().parse<JsonObject?>(message.data)
+            if(jsonObject == null){
+                sendMessage(MessageProtocol.RESPONSE_ERROR, null)
+                return
+            }
             callbackListener?.onDataReceived(message.type, jsonObject)
             sendMessage(MessageProtocol.RESPONSE_OK, null)
         }
@@ -168,8 +173,8 @@ class IntresteCommunicationService {
             0,
             type,
             System.currentTimeMillis(),
-            dataString?.length ?: 0,
-            dataString ?: ""
+            dataString?.length ?: 2,
+            dataString ?: "{}"
         )
         val packagedMessage = messageProtocol.packMessage(message)
         write(packagedMessage)
