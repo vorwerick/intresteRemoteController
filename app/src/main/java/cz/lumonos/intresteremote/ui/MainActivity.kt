@@ -11,6 +11,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,27 +36,54 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), LoggingListener {
 
-    var menu: Menu? = null
-
     var connectedToIntreste = false
     val stringbuilder = StringBuilder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-       // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         setContentView(R.layout.activity_main)
 
-        val address = "00:22:04:00:27:80"
-        if (!address.isNullOrEmpty()) {
-            Log.i("AGAIN", "XXXXC")
-            connectToBluetooth(address)
-        } else {
-            launchActivity()
+        if (!IntresteRepository.instance.isConnected()) {
+            val address = "00:22:04:00:27:80"
+            if (!address.isNullOrEmpty()) {
+                Log.i("AGAIN", "XXXXC")
+                connectToBluetooth(address)
+            }
         }
+        IntresteRepository.instance.subscribeConnectionStatus { status, address ->
+            if (status != null) {
+                when (status) {
+                    1 -> {
+                        //connected
+                        findViewById<LinearLayout>(R.id.connection_status_view).setBackgroundColor(
+                            getColor(
+                                R.color.correct_hit_color_text
+                            )
+                        )
+                    }
+                    2 -> {
+                        findViewById<LinearLayout>(R.id.connection_status_view).setBackgroundColor(
+                            getColor(
+                                R.color.timeout_color
+                            )
+                        )
+                    }
+                    else -> {
+                        //disconnected
+                        findViewById<LinearLayout>(R.id.connection_status_view).setBackgroundColor(
+                            getColor(
+                                R.color.error_color
+                            )
+                        )
 
+                    }
+                }
 
+            }
+        }
 
 
         App.loggingService.loggingListener = this
@@ -71,15 +99,6 @@ class MainActivity : AppCompatActivity(), LoggingListener {
         setupActionBarWithNavController(getNavController(), appBarConfiguration)
 
         connectedToIntreste = IntresteRepository.instance.isConnected()
-        menu?.findItem(R.id.menu_item_bluetooth)?.isVisible = connectedToIntreste
-
-        GlobalScope.launch(Dispatchers.Main) {
-            while (true){
-                delay(1500)
-                connectedToIntreste = IntresteRepository.instance.isConnected()
-                menu?.findItem(R.id.menu_item_bluetooth)?.isVisible = connectedToIntreste
-            }
-        }
 
 
         /* if (intresteViewModel.isConnectedToIntreste.value == true) {
@@ -93,35 +112,6 @@ class MainActivity : AppCompatActivity(), LoggingListener {
 
     }
 
-    private val mReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            Log.i("GOGOL", "dXXX")
-            Log.i("GOGOL", "CCC")
-            val action = intent.action
-            if (BluetoothDevice.ACTION_FOUND == action) {
-                // Discovery has found a device. Get the BluetoothDevice
-                // object and its info from the Intent.
-                val device =
-                    intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-                val deviceName = device!!.name
-                val deviceHardwareAddress = device.address // MAC address
-                Log.i("GOGOL", "device $deviceName")
-                Log.i("GOGOL", "hard$deviceHardwareAddress")
-            }
-        }
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu, menu)
-        this.menu = menu
-        val item = menu?.findItem(R.id.menu_item_bluetooth)
-
-        item?.isVisible = IntresteRepository.instance.isConnected()
-
-        return true
-    }
 
     private fun getNavController(): NavController {
         val navHostFragment =
@@ -146,47 +136,5 @@ class MainActivity : AppCompatActivity(), LoggingListener {
 
     private fun getPreferences(context: Context): String? {
         return context.getSharedPreferences("APP", Context.MODE_PRIVATE).getString("address", "")
-    }
-
-    fun launchActivity() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                ),
-                1002
-            )
-        } else {
-            val intent = Intent(this, ScanQRActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            1002 -> {
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    val intent = Intent(this, ScanQRActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(
-                        this,
-                        "Please grant camera permission to use the QR Scanner",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                return
-            }
-        }
     }
 }

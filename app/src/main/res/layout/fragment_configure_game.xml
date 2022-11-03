@@ -1,185 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/menu_card_item_background">
+    android:layout_height="wrap_content"
+    android:background="#333333">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-   <LinearLayout
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal">
-       <androidx.appcompat.widget.AppCompatTextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginHorizontal="16dp"
-           android:layout_margin="16dp"
-           android:fontFamily="sans-serif-light"
-           android:text="Časový limit"
-           android:textColor="@color/font_white"
-           android:textSize="32sp"
-           android:textStyle="bold" />
-        <Button
-            android:id="@+id/game_config_timeout_minus_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:text="-"
-            android:layout_gravity="center"/>
-       <androidx.appcompat.widget.AppCompatTextView
-           android:id="@+id/game_config_timeout_text"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center_vertical"
-           android:layout_marginHorizontal="16dp"
-           android:layout_margin="16dp"
-           android:fontFamily="sans-serif-light"
-           android:text="60"
-           android:textColor="@color/font_white"
-           android:textSize="24sp"
-           android:textStyle="bold" />
-
-       <Button
-           android:id="@+id/game_config_timeout_plus_button"
-           android:layout_width="48dp"
-           android:layout_height="48dp"
-           android:text="+"
-           android:layout_gravity="center"/>
-   </LinearLayout>
-
-
-
-
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_margin="16dp"
                 android:fontFamily="sans-serif-light"
-                android:text="Kladné body"
+                android:text="Konfigurace hry"
                 android:textColor="@color/font_white"
-                android:textSize="32sp"
-                android:textStyle="bold" />
-            <Button
-                android:id="@+id/game_config_hits_minus_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:text="-"
-                android:layout_gravity="center"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/game_config_hits_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="16dp"
-                android:layout_margin="16dp"
-                android:fontFamily="sans-serif-light"
-                android:text="60"
-                android:textColor="@color/font_white"
-                android:textSize="24sp"
+                android:textSize="22sp"
+                android:layout_marginBottom="4dp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/game_config_hits_plus_button"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="32dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Časový limit"
+                    android:textColor="@color/font_white"
+                    android:textSize="18sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageButton
+                        android:id="@+id/game_config_timeout_minus_button"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:textSize="18sp"
+                        android:src="@drawable/ic_minus"
 
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:text="+"
-                android:layout_gravity="center"/>
+                        android:backgroundTint="@color/darkest_green"
+                        android:layout_gravity="center"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/game_config_timeout_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_margin="16dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="60"
+                        android:textColor="@color/font_white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/game_config_timeout_plus_button"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:textSize="18sp"
+                        android:src="@drawable/ic_plus"
+
+                        android:backgroundTint="@color/darkest_green"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="32dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Body za zásah"
+                    android:textColor="@color/font_white"
+                    android:textSize="18sp" />
+                <ImageButton
+                    android:id="@+id/game_config_hits_minus_button"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:textSize="18sp"
+                    android:src="@drawable/ic_minus"
+
+                    android:backgroundTint="@color/darkest_green"
+                    android:layout_gravity="center"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/game_config_hits_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_margin="16dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="60"
+                    android:textColor="@color/font_white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/game_config_hits_plus_button"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:textSize="18sp"
+                    android:src="@drawable/ic_plus"
+
+                    android:backgroundTint="@color/darkest_green"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="32dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Body za vedle"
+                    android:textColor="@color/font_white"
+                    android:textSize="18sp" />
+                <ImageButton
+                    android:id="@+id/game_config_misses_minus_button"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:textSize="18sp"
+                    android:backgroundTint="@color/darkest_green"
+                    android:src="@drawable/ic_minus"
+                    android:layout_gravity="center"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/game_config_misses_text"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_margin="16dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="60"
+                    android:textColor="@color/font_white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/game_config_misses_plus_button"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:textSize="18sp"
+                    android:src="@drawable/ic_plus"
+
+                    android:backgroundTint="@color/darkest_green"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+
+                <Button
+                    android:id="@+id/run_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:text="Spustit"
+                    android:textColor="@color/dark_green"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_margin="16dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Záporné body"
-                android:textColor="@color/font_white"
-                android:textSize="32sp"
-                android:textStyle="bold" />
-            <Button
-                android:id="@+id/game_config_misses_minus_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:text="-"
-                android:layout_gravity="center"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/game_config_misses_text"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="16dp"
-                android:layout_margin="16dp"
-                android:fontFamily="sans-serif-light"
-                android:text="60"
-                android:textColor="@color/font_white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/game_config_misses_plus_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:text="+"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-
-
     </LinearLayout>
 
 
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/ready_game_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_margin="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/alpha30"
-        android:elevation="12dp"
-        app:cardCornerRadius="16dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_height="match_parent">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="16dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Připravit"
-                android:textColor="@color/font_white"
-                android:textSize="30sp"
-                android:textStyle="" />
 
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="36dp"
-                android:layout_margin="8dp"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginHorizontal="12dp"
-                android:src="@drawable/ic_next"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

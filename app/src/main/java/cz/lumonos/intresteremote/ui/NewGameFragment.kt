@@ -24,7 +24,6 @@ class NewGameFragment: Fragment() {
 
         val game1CardView = view.findViewById<CardView>(R.id.game_1_card)
         game1CardView.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_new_game_to_nav_config_game)
         }
 
     }

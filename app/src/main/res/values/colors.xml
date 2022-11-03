@@ -25,7 +25,7 @@
     <color name="timer_color">#d10202</color>
     <color name="timer_color_light">#dbbfbf</color>
     <color name="wrong_hit_color_text">#fc4e4e</color>
-    <color name="correct_hit_color_text">#59ff86</color>
+    <color name="correct_hit_color_text">#11EE11</color>
     <color name="font_black">#FF404040</color>
     <color name="black_50">#81000000</color>
     <color name="timeout_color">#ffae17</color>

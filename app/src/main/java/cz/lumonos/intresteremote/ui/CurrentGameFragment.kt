@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import cz.lumonos.intresteremote.R
 import cz.lumonos.intresteremote.data.intreste.IntresteRepository
 import cz.lumonos.intresteremote.service.CurrentGame
 import cz.lumonos.intresteremote.service.GameState
+import cz.lumonos.intresteremote.service.ObjectGameConfig
 import cz.lumonos.intresteremote.service.log.L
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -50,6 +52,14 @@ class CurrentGameFragment : Fragment() {
             }
             val currentGame: CurrentGame = it!!
 
+            val gameName = view.findViewById<AppCompatTextView>(R.id.game_status_name)
+            val gameHitCount =  view.findViewById<AppCompatTextView>(R.id.game_hit_count_text)
+            val gameMissCount =  view.findViewById<AppCompatTextView>(R.id.game_misses_count_text)
+
+            val gameHitPointsCount =  view.findViewById<AppCompatTextView>(R.id.game_hit_points_text)
+
+            val gameMissPointsCount =  view.findViewById<AppCompatTextView>(R.id.game_miss_points_text)
+
             val gameStateTextView =
                 view.findViewById<AppCompatTextView>(R.id.game_status_text_view)
             val gameTimeoutTextView =
@@ -59,39 +69,62 @@ class CurrentGameFragment : Fragment() {
             val gameLastStateTextView =
                 view.findViewById<AppCompatTextView>(R.id.game_last_state_text_view)
 
+            gameName.text = "Jméno hry: " + currentGame.gameName
             when (currentGame.gameState) {
                 GameState.PREPARED.toString() -> gameStateTextView.text =
-                    "Připraveno k zahájení"
-                GameState.STARTING.toString() -> gameStateTextView.text = "Hra začíná"
-                GameState.PROGRESS.toString() -> gameStateTextView.text = "Hra probíhá"
-                GameState.FINISHED.toString() -> gameStateTextView.text = "Hra dohraná"
+                    "Stav: Připraveno k zahájení"
+                GameState.STARTING.toString() -> gameStateTextView.text = "Stav: Hra začíná"
+                GameState.PROGRESS.toString() -> gameStateTextView.text = "Stav: Hra probíhá"
+                GameState.FINISHED.toString() -> gameStateTextView.text = "Stav: Hra dohraná"
             }
-
-            gameTimeoutTextView.text = "Zbývající čas ${currentGame.timeout}s"
-            gameScoreTextView.text = "Skóre ${currentGame.score}"
+            gameHitCount.text = "Zásahů: " + currentGame.hits.toString()
+            gameMissCount.text = "Netrefení: " + currentGame.misses.toString()
+            gameHitPointsCount.text = "Bodů za zásah: " + currentGame.hitPoints.toString()
+            gameMissPointsCount.text = "Bodů za netrefení: " + currentGame.missesPoints.toString()
+            gameTimeoutTextView.text = "Zbývající čas: ${currentGame.timeout}s"
+            gameScoreTextView.text = "Skóre: ${currentGame.score}"
 
             val builder = StringBuilder()
 
 
             if (it.hitPanelId != -1 && it.hitPanelIndex != -1) {
-                builder.append("Zasažený panel ID").append(it.hitPanelId).append(":").append("\n")
-                    .append("Pozice seřazení ").append(it.hitPanelIndex)
+                builder.append("Poslední zasažený panel č. ").append(it.hitPanelIndex)
             }
 
             gameLastStateTextView.text = builder.toString()
-        }
-
-        val cancelGameCardView = view.findViewById<CardView>(R.id.cancel_game_card)
-        cancelGameCardView.setOnClickListener {
-            showCancelDialog()
         }
 
         val restartGameCardView = view.findViewById<CardView>(R.id.restart_game_card)
         restartGameCardView.setOnClickListener {
             showRestartDialog()
         }
+        val newGameCardView = view.findViewById<CardView>(R.id.new_game_card)
+        newGameCardView.setOnClickListener {
+            showNewGameDialog()
+        }
 
 
+    }
+
+    private fun showNewGameDialog() {
+        val builderSingle = AlertDialog.Builder(context)
+        builderSingle.setTitle("Vyberte hru")
+
+        val arrayAdapter =
+            ArrayAdapter<String>(requireContext(), android.R.layout.select_dialog_item )
+        arrayAdapter.add("Zasáhni co nejvíc")
+
+        builderSingle.setNegativeButton(
+            "Zrušit"
+        ) { dialog, which -> dialog.dismiss() }
+
+        builderSingle.setAdapter(
+            arrayAdapter
+        ) { dialog, which ->
+            val builderInner = ConfigureGameFragment()
+            builderInner.show(childFragmentManager, builderInner.tag)
+        }
+        builderSingle.show()
     }
 
     fun showRestartDialog() {
@@ -101,8 +134,9 @@ class CurrentGameFragment : Fragment() {
             // The dialog is automatically dismissed when a dialog button is clicked.
             .setPositiveButton("Ano",
                 DialogInterface.OnClickListener { dialog, which ->
+                    IntresteRepository.instance.restartGame()
                     dialog.cancel()
-                   // IntresteRepository.instance.startGame()
+
 
                 }) // A null listener allows the button to dismiss the dialog and take no further action.
             .setNegativeButton("Ne") { dialog, _ ->
@@ -111,24 +145,5 @@ class CurrentGameFragment : Fragment() {
             .show()
     }
 
-    fun showCancelDialog() {
-        AlertDialog.Builder(context)
-            .setTitle("Ukončit")
-            .setMessage("Opravdu ukončit hru?") // Specifying a listener allows you to take an action before dismissing the dialog.
-            // The dialog is automatically dismissed when a dialog button is clicked.
-            .setPositiveButton("Ano",
-                DialogInterface.OnClickListener { dialog, which ->
-                    GlobalScope.launch {
-                        delay(3000)
-                        IntresteRepository.instance.requestCurrentGame()
-                    }
-                    IntresteRepository.instance.cancelGame()
-                    dialog.cancel()
-                    findNavController().navigate(R.id.action_nav_current_game_to_nav_menu)
-                }) // A null listener allows the button to dismiss the dialog and take no further action.
-            .setNegativeButton("Ne") { dialog, which ->
-                dialog.cancel()
-            }
-            .show()
-    }
+
 }

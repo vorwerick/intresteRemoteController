@@ -17,8 +17,13 @@ class IntresteRepository() : CommandCallbackListener {
     }
 
     private var currentGameCallbacks = mutableListOf<(currentGame: CurrentGame?) -> Unit>()
+    private var stateCallbacks = mutableListOf<(currentGame: State?) -> Unit>()
+    private var connectionCallbacks = mutableListOf<(connectionStatus: Int, address: String) -> Unit>()
+
+    var address = ""
 
     fun connect(macAddress: String, bluetoothAdapter: BluetoothAdapter): Boolean {
+        address = macAddress
         return App.intresteService.connect(
             macAddress,
             bluetoothAdapter,
@@ -49,13 +54,6 @@ class IntresteRepository() : CommandCallbackListener {
         )
     }
 
-    fun cancelGame() {
-        App.intresteService.sendMessage(
-            MessageProtocol.DATA,
-            JsonObject(mapOf("command" to "interruptGame"))
-        )
-    }
-
     fun sortPanels() {
         App.intresteService.sendMessage(
             MessageProtocol.DATA,
@@ -74,6 +72,14 @@ class IntresteRepository() : CommandCallbackListener {
         currentGameCallbacks.add(callback)
     }
 
+    fun subscribeState(callback: (State?) -> Unit) {
+        stateCallbacks.add(callback)
+    }
+
+    fun subscribeConnectionStatus(callback: (Int?, String) -> Unit) {
+        connectionCallbacks.add(callback)
+    }
+
     fun requestCurrentGame() {
         App.intresteService.sendMessage(
             MessageProtocol.DATA,
@@ -84,10 +90,25 @@ class IntresteRepository() : CommandCallbackListener {
     override fun onDataReceived(type: Int, jsonObject: JsonObject) {
         GlobalScope.launch(Dispatchers.Main) {
             if (jsonObject["command"] == "currentGame") {
-               val currentGame = Klaxon().parse<CurrentGame?>(jsonObject["currentGame"] as String)
-                Log.i("Data received", "current game: " + jsonObject.toJsonString())
+                val newObject = jsonObject["currentGame"]
+                if (newObject != null) {
+                    val currentGame = Klaxon().parse<CurrentGame?>(newObject as String)
+                    Log.i("Data received", "current game: " + jsonObject.toJsonString())
 
-                currentGameCallbacks.forEach { it.invoke(currentGame) }
+                    currentGameCallbacks.forEach { it.invoke(currentGame) }
+                }
+
+            }
+            if (jsonObject["command"] == "state") {
+                val newObject = jsonObject["state"]
+
+                if (newObject != null) {
+                    val state = Klaxon().parse<State?>(jsonObject["state"] as String)
+                    Log.i("Data received", "state: " + jsonObject.toJsonString())
+
+                    stateCallbacks.forEach { it.invoke(state) }
+                }
+
             }
         }
     }
@@ -96,6 +117,46 @@ class IntresteRepository() : CommandCallbackListener {
     }
 
     override fun onResponseOkReceived(messageId: Long) {
+    }
+
+    override fun onDisconnected() {
+        connectionCallbacks.forEach { it.invoke(0, address) }
+    }
+
+    override fun onConnected() {
+        connectionCallbacks.forEach { it.invoke(1, address) }
+    }
+
+    override fun onConnecting() {
+        connectionCallbacks.forEach { it.invoke(2, address) }
+    }
+
+    fun runLedDisplayTest() {
+        App.intresteService.sendMessage(
+            MessageProtocol.DATA,
+            JsonObject(mapOf("command" to "startLedTest"))
+        )
+    }
+
+    fun runPanelTest() {
+        App.intresteService.sendMessage(
+            MessageProtocol.DATA,
+            JsonObject(mapOf("command" to "startPanelTest"))
+        )
+    }
+
+    fun requestState() {
+        App.intresteService.sendMessage(
+            MessageProtocol.DATA,
+            JsonObject(mapOf("command" to "getState"))
+        )
+    }
+
+    fun restartGame() {
+        App.intresteService.sendMessage(
+            MessageProtocol.DATA,
+            JsonObject(mapOf("command" to "restartGame"))
+        )
     }
 
 }

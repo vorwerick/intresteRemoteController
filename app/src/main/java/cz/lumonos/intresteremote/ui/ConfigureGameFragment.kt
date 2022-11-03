@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.button.MaterialButton
 import cz.lumonos.intresteremote.R
 import cz.lumonos.intresteremote.data.intreste.IntresteRepository
 import cz.lumonos.intresteremote.service.ObjectGameConfig
 
-class ConfigureGameFragment: Fragment() {
+class ConfigureGameFragment: DialogFragment() {
 
     var timout = 60
     var missesPoints = -2
@@ -39,13 +42,12 @@ class ConfigureGameFragment: Fragment() {
          hitPoints = 1
 
 
-        val readyGameCardView = view.findViewById<CardView>(R.id.ready_game_card)
+        val readyGameCardView = view.findViewById<MaterialButton>(R.id.run_button)
         readyGameCardView.setOnClickListener {
             IntresteRepository.instance.startGame(ObjectGameConfig(timout, hitPoints, missesPoints))
-            findNavController().navigate(R.id.action_nav_config_game_to_nav_current_game)
         }
 
-        val timeoutMinusButton = view.findViewById<Button>(R.id.game_config_timeout_minus_button)
+        val timeoutMinusButton = view.findViewById<ImageButton>(R.id.game_config_timeout_minus_button)
         timeoutMinusButton.setOnClickListener {
             timout -= 10
             if(timout <= 10){
@@ -54,13 +56,13 @@ class ConfigureGameFragment: Fragment() {
             updateTextView()
 
         }
-        val timeoutPlusButton = view.findViewById<Button>(R.id.game_config_timeout_plus_button)
+        val timeoutPlusButton = view.findViewById<ImageButton>(R.id.game_config_timeout_plus_button)
         timeoutPlusButton.setOnClickListener {
             timout += 10
             updateTextView()
 
         }
-        val hitsMinusButton = view.findViewById<Button>(R.id.game_config_hits_minus_button)
+        val hitsMinusButton = view.findViewById<ImageButton>(R.id.game_config_hits_minus_button)
         hitsMinusButton.setOnClickListener {
             hitPoints -= 1
             if(hitPoints <= 0){
@@ -69,13 +71,13 @@ class ConfigureGameFragment: Fragment() {
             updateTextView()
 
         }
-        val hitsPlusButton = view.findViewById<Button>(R.id.game_config_hits_plus_button)
+        val hitsPlusButton = view.findViewById<ImageButton>(R.id.game_config_hits_plus_button)
         hitsPlusButton.setOnClickListener {
             hitPoints += 1
             updateTextView()
 
         }
-        val missesMinusButton = view.findViewById<Button>(R.id.game_config_misses_minus_button)
+        val missesMinusButton = view.findViewById<ImageButton>(R.id.game_config_misses_minus_button)
         missesMinusButton.setOnClickListener {
             missesPoints -= 1
             if(missesPoints <= -9){
@@ -84,7 +86,7 @@ class ConfigureGameFragment: Fragment() {
             updateTextView()
 
         }
-        val missesPlusButton = view.findViewById<Button>(R.id.game_config_misses_plus_button)
+        val missesPlusButton = view.findViewById<ImageButton>(R.id.game_config_misses_plus_button)
         missesPlusButton.setOnClickListener {
             missesPoints += 1
             if(missesPoints >= 0){

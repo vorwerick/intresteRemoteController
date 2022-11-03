@@ -10,25 +10,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/current_game_card"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/game_status_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/alpha30"
-            android:elevation="12dp">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Zasáhni co nejvíc"
-                android:textColor="@color/font_white"
-                android:textSize="32sp"
-                android:textStyle="" />
-
-        </LinearLayout>
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/font_white"
+            android:textSize="20sp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/game_status_text_view"
@@ -39,8 +30,29 @@
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/font_white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="20sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/game_hit_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/font_white"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/game_misses_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/font_white"
+            android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/game_timeout_text_view"
@@ -51,10 +63,29 @@
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/font_white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/game_hit_points_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/font_white"
+            android:textSize="20sp" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/game_miss_points_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/font_white"
+            android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/game_score_text_view"
@@ -65,8 +96,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/font_white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/game_last_state_text_view"
             android:layout_width="wrap_content"
@@ -76,53 +106,83 @@
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/font_white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/new_game_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/very_darkest_green"
+        android:elevation="12dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/restart_game_card">
 
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Nová hra"
+            android:textColor="@color/font_white"
+            android:textSize="22sp"
+            android:textStyle="" />
+    </androidx.cardview.widget.CardView>
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/restart_game_card"
-        android:layout_width="86dp"
-        android:layout_height="86dp"
-        android:layout_margin="24dp"
-        android:backgroundTint="@color/alpha30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/very_darkest_green"
         android:elevation="12dp"
-        app:cardCornerRadius="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cancel_game_card">
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cancel_game_card">
 
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginHorizontal="12dp"
-            android:src="@drawable/ic_restart" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Restartovat"
+            android:textColor="@color/font_white"
+            android:textSize="22sp"
+            android:textStyle="" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cancel_game_card"
-        android:layout_width="86dp"
-        android:layout_height="86dp"
-        android:layout_margin="24dp"
-        android:backgroundTint="@color/alpha30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/very_darkest_green"
         android:elevation="12dp"
-        app:cardCornerRadius="24dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginHorizontal="12dp"
-            android:src="@drawable/ic_cancel" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Ukončit"
+            android:textColor="@color/font_white"
+            android:textSize="22sp"
+            android:textStyle="" />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

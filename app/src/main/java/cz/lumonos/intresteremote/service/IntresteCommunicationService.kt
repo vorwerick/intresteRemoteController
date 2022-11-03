@@ -8,6 +8,7 @@ import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Klaxon
 import com.beust.klaxon.Parser
 import cz.lumonos.intresteremote.data.intreste.CommandCallbackListener
+import cz.lumonos.intresteremote.data.intreste.IntresteRepository
 import cz.lumonos.intresteremote.service.log.L
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -62,7 +63,7 @@ class IntresteCommunicationService {
         messageProtocol.readMessageCallback = { message ->
             resolveMessage(message)
         }
-
+        callbackListener?.onConnecting()
         GlobalScope.launch(Dispatchers.IO) {
 
 
@@ -79,7 +80,19 @@ class IntresteCommunicationService {
                 Log.d("GOGOL", "connected")
                 outputStream = socket!!.outputStream
                 inputStream = socket!!.inputStream
-
+                GlobalScope.launch(Dispatchers.Main) { callbackListener.onConnected() }
+                GlobalScope.launch(Dispatchers.Main) {
+                    while (socket != null){
+                        delay(1000)
+                        IntresteRepository.instance.requestState()
+                    }
+                }
+                GlobalScope.launch(Dispatchers.Main) {
+                    while (socket != null){
+                        delay(500)
+                        IntresteRepository.instance.requestCurrentGame()
+                    }
+                }
                 GlobalScope.launch(Dispatchers.IO) {
                     startReadTask()
                 }
@@ -120,7 +133,7 @@ class IntresteCommunicationService {
         if (message.type == MessageProtocol.DATA) {
             val parser: Parser = Parser.default()
             val jsonObject: JsonObject? = parser.parse(StringBuilder(message.data)) as JsonObject?
-            if(jsonObject == null){
+            if (jsonObject == null) {
                 sendMessage(MessageProtocol.RESPONSE_ERROR, null)
                 return
             }
@@ -145,6 +158,8 @@ class IntresteCommunicationService {
         outputStream = null
         inputStream = null
         socket = null
+        GlobalScope.launch(Dispatchers.Main) { callbackListener?.onDisconnected() }
+
     }
 
     fun write(message: String) {

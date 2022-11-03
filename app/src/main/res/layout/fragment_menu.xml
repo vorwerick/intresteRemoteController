@@ -3,114 +3,194 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="68dp"
-        tools:layout_editor_absoluteY="97dp">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/status_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="12dp"
+                android:backgroundTint="@color/very_darkest_green"
+                android:elevation="12dp">
+
+                <LinearLayout
+                    android:layout_margin="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Spojení s Intreste"
+                        android:textColor="@color/font_white"
+                        android:textSize="26sp"
+                        android:textStyle="" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_connect_with_intreste"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text=""
+                        android:textColor="@color/font_white"
+                        android:textSize="16sp"
+                        android:textStyle="" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_address_with_intreste"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text=""
+                        android:textColor="@color/font_white"
+                        android:textSize="16sp"
+                        android:textStyle="" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_info1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text=""
+                        android:textColor="@color/font_white"
+                        android:textSize="16sp"
+                        android:textStyle="" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_info2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text=""
+                        android:textColor="@color/font_white"
+                        android:textSize="16sp"
+                        android:textStyle="" />
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="right"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ic_bluetooth"
+                    tools:ignore="RtlHardcoded" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/current_game_card"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginTop="12dp"
-                android:backgroundTint="@color/alpha30"
+                app:cardCornerRadius="12dp"
+                android:backgroundTint="@color/very_darkest_green"
                 android:elevation="12dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <LinearLayout
+                    android:layout_margin="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Aktuální hra"
-                    android:textColor="@color/font_white"
-                    android:textSize="32sp"
-                    android:textStyle="" />
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/game_title_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text=""
+                        android:textColor="@color/font_white"
+                        android:textSize="26sp"
+                        android:textStyle="" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/game_status_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text=""
+                        android:textColor="@color/font_white"
+                        android:textSize="16sp"
+                        android:textStyle="" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/game_name_text"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text=""
+                        android:textColor="@color/font_white"
+                        android:textSize="16sp"
+                        android:textStyle="" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/game_info_text"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text=""
+                        android:textColor="@color/font_white"
+                        android:textSize="16sp"
+                        android:textStyle="" />
+                </LinearLayout>
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginHorizontal="12dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="right"
+                    android:layout_margin="16dp"
                     android:src="@drawable/ic_running"
                     tools:ignore="RtlHardcoded" />
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/new_game_card"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginTop="12dp"
-                android:backgroundTint="@color/alpha30"
-                android:elevation="12dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Nová hra"
-                    android:textColor="@color/font_white"
-                    android:textSize="32sp"
-                    android:textStyle="" />
 
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginHorizontal="12dp"
-                    android:src="@drawable/ic_soccer"
-                    tools:ignore="RtlHardcoded" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/sort_panels_card"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginTop="12dp"
-                android:backgroundTint="@color/alpha30"
-                android:elevation="12dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Seřazení panelů"
-                    android:textColor="@color/font_white"
-                    android:textSize="32sp"
-                    android:textStyle="" />
-
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginHorizontal="12dp"
-                    android:src="@drawable/ic_sort"
-                    tools:ignore="RtlHardcoded" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:visibility="gone"
                 android:id="@+id/statistics_card"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginTop="12dp"
-                android:backgroundTint="@color/alpha30"
+                android:backgroundTint="@color/very_darkest_green"
                 android:elevation="12dp">
+
+
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -125,102 +205,48 @@
 
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginHorizontal="12dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="right"
+                    android:layout_margin="12dp"
                     android:src="@drawable/ic_stats"
                     tools:ignore="RtlHardcoded" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/game_store_card"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginTop="12dp"
-                android:backgroundTint="@color/alpha30"
-                android:elevation="12dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Koupit hry"
-                    android:textColor="@color/font_white"
-                    android:textSize="32sp"
-                    android:textStyle="" />
+            </com.google.android.material.card.MaterialCardView>
 
 
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginHorizontal="12dp"
-                    android:src="@drawable/ic_store"
-                    tools:ignore="RtlHardcoded" />
-            </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/settings_card"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginTop="12dp"
-                android:backgroundTint="@color/alpha30"
+                app:cardCornerRadius="12dp"
+                android:backgroundTint="@color/very_darkest_green"
                 android:elevation="12dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
+                    android:layout_margin="16dp"
                     android:fontFamily="sans-serif-light"
                     android:text="Nastavení"
                     android:textColor="@color/font_white"
-                    android:textSize="32sp"
+                    android:textSize="26sp"
                     android:textStyle="" />
 
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="right|center_vertical"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="right"
+                    android:layout_margin="16dp"
                     android:layout_marginHorizontal="12dp"
                     android:src="@drawable/ic_settings"
                     tools:ignore="RtlHardcoded" />
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/account_and_licence_card"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginTop="12dp"
-                android:backgroundTint="@color/alpha30"
-                android:elevation="12dp">
+            </com.google.android.material.card.MaterialCardView>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Účet a licence"
-                    android:textColor="@color/font_white"
-                    android:textSize="32sp"
-                    android:textStyle="" />
-
-
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginHorizontal="12dp"
-                    android:src="@drawable/ic_account"
-                    tools:ignore="RtlHardcoded" />
-            </androidx.cardview.widget.CardView>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
